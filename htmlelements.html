@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Web Components Test - HTMLElements</title>
+</head>
+<body>
+    <ok-cancel></ok-cancel>
+
+<script>
+const template = document.createElement('template');
+template.innerHTML = `
+  <style>
+    * {
+      font-size: 200%;
+    }
+    span {
+      width: 4rem;
+      display: inline-block;
+      text-align: center;
+    }
+    button {
+      width: 8rem;
+      height: 4rem;
+      border: none;
+      border-radius: 10px;
+      background-color: green;
+      color: white;
+    }
+    button#cancel {
+      background-color: red;
+    }
+  </style>
+
+  <button id="ok">ok</button>
+  <button id="cancel">cancel</button>
+  <div id="feedback"></div>`;
+
+class okcanceldialogue extends HTMLElement {
+  constructor() {
+    super();
+    this.feedback = "";
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.shadowRoot.getElementById('ok').onclick = () => this.ok();
+    this.shadowRoot.getElementById('cancel').onclick = () => this.cancel();
+  }
+
+  ok() {
+    this.shadowRoot.getElementById('feedback').innerHTML = "thanks for clicking ok.";
+  }
+
+  cancel() {
+    this.shadowRoot.getElementById('feedback').innerHTML = "thanks for nothing.";
+  }
+
+}
+
+customElements.define('ok-cancel', okcanceldialogue);
+
+</script>
+</body>
+</html>

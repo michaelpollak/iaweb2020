@@ -1,0 +1,34 @@
+<!-- Compile this on: https://svelte.dev/repl -->
+
+<script>
+    let feedback = "";
+
+    function ok() {
+        feedback = "adsf";
+    }
+
+    function cancel() {
+        feedback = "asdfs";
+    }
+</script>
+
+  <style>
+    * {
+      font-size: 200%;
+    }
+    button {
+      width: 8rem;
+      height: 4rem;
+      border: none;
+      border-radius: 10px;
+      background-color: green;
+      color: white;
+    }
+    button#cancel {
+      background-color: red;
+    }
+  </style>
+
+<button on:click={ok}>ok</button>
+<button id="cancel" on:click={cancel}>cancel</button>
+<div>{feedback}</div>

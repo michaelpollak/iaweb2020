@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Web Components Test - LitElement</title>
+
+</head>
+<body>
+    <ok-cancel></ok-cancel>
+
+<script type="module">
+import { LitElement, html, css } from 'lit-element';
+
+export class OkCancel extends LitElement {
+  static properties = {
+    feedback: { type: String },
+  };
+
+  static styles = css`
+    * {
+      font-size: 200%;
+    }
+    button {
+      width: 8rem;
+      height: 4rem;
+      border: none;
+      border-radius: 10px;
+      background-color: seagreen;
+      color: white;
+    }
+    button#cancel {
+      background-color: red;
+    }
+  `;
+
+  constructor() {
+    super();
+    this.feedback = '';
+  }
+
+  ok() {
+    this.feedback = "thanks for clicking ok.";
+  }
+
+  cancel() {
+    this.feedback = "thanks for nothing.";
+  }
+
+  render() {
+    return html`
+      <button @click="${this.ok}">ok</button>
+      <button id="cancel" @click="${this.cancel}">cancel</button>
+      <div>${this.feedback}</div>
+    `;
+  }
+}
+
+customElements.define('ok-cancel', OkCancel);
+</script>
+</body>
+</html>
